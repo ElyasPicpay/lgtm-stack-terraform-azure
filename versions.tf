@@ -17,12 +17,12 @@ terraform {
   }
 
   # Descomente e ajuste para usar remote state
-  # backend "azurerm" {
-  #   resource_group_name  = "rg-terraform-state"
-  #   storage_account_name = "stterraformstate"
-  #   container_name       = "tfstate"
-  #   key                  = "lgtm/terraform.tfstate"
-  # }
+  backend "azurerm" {
+    resource_group_name  = "rg-celeste-asr-services"
+    storage_account_name = "stcelesteasrstate"
+    container_name       = "tfstate"
+    key                  = "lgtm/terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
