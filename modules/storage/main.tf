@@ -16,8 +16,9 @@ resource "azurerm_storage_account" "lgtm" {
   account_replication_type = var.storage_replication_type
   min_tls_version          = "TLS1_2"
 
-  # Desabilita acesso público aos blobs — tudo via private endpoint
-  public_network_access_enabled   = false
+  # Quando o Terraform roda fora da VNet privada, o data-plane de blobs
+  # precisa de endpoint publico para gerenciar os containers.
+  public_network_access_enabled   = var.storage_public_network_access_enabled
   allow_nested_items_to_be_public = false
 
   blob_properties {

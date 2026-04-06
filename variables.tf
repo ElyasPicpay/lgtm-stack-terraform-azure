@@ -64,6 +64,12 @@ variable "storage_tier" {
   default     = "Standard"
 }
 
+variable "storage_public_network_access_enabled" {
+  description = "Habilita acesso publico na Storage Account para permitir operacoes de data-plane via Terraform fora da VNet privada."
+  type        = bool
+  default     = true
+}
+
 # ---------------------------------------------------------------------------
 # Container Apps Environment
 # ---------------------------------------------------------------------------

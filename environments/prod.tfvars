@@ -44,8 +44,8 @@ max_replicas = 5
 
 # Tags extras
 tags = {
-  owner      = "platform-team"
-  costcenter = "eng-platform"
+  owner       = "platform-team"
+  costcenter  = "eng-platform"
   criticality = "high"
 }
 

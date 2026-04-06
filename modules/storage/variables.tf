@@ -3,6 +3,7 @@ variable "resource_group_name" { type = string }
 variable "location" { type = string }
 variable "storage_tier" { type = string }
 variable "storage_replication_type" { type = string }
+variable "storage_public_network_access_enabled" { type = bool }
 variable "subnet_private_endpoints_id" { type = string }
 variable "vnet_id" { type = string }
 variable "tags" { type = map(string) }
