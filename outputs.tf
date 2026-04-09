@@ -42,3 +42,13 @@ output "storage_account_name" {
   description = "Nome da Storage Account usada pelos backends."
   value       = module.storage.storage_account_name
 }
+
+output "postgres_fqdn" {
+  description = "FQDN do PostgreSQL Flexible Server do Grafana."
+  value       = azurerm_postgresql_flexible_server.grafana.fqdn
+}
+
+output "postgres_database_name" {
+  description = "Nome do banco de dados do Grafana."
+  value       = azurerm_postgresql_flexible_server_database.grafana.name
+}

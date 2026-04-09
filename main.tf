@@ -21,6 +21,39 @@ resource "azurerm_resource_group" "main" {
 }
 
 # ---------------------------------------------------------------------------
+# PostgreSQL Flexible Server (banco externo do Grafana)
+# ---------------------------------------------------------------------------
+resource "azurerm_postgresql_flexible_server" "grafana" {
+  name                          = "psql-${local.name_prefix}"
+  resource_group_name           = azurerm_resource_group.main.name
+  location                      = var.location
+  version                       = var.postgres_version
+  administrator_login           = var.postgres_admin_username
+  administrator_password        = var.postgres_admin_password
+  storage_mb                    = var.postgres_storage_mb
+  sku_name                      = var.postgres_sku_name
+  backup_retention_days         = 7
+  geo_redundant_backup_enabled  = false
+  public_network_access_enabled = var.postgres_public_network_access_enabled
+  tags                          = local.common_tags
+}
+
+resource "azurerm_postgresql_flexible_server_database" "grafana" {
+  name      = var.postgres_database_name
+  server_id = azurerm_postgresql_flexible_server.grafana.id
+  charset   = "UTF8"
+  collation = "en_US.utf8"
+}
+
+# Permite conexao a partir de servicos Azure (incluindo Container Apps)
+resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_azure_services" {
+  name             = "AllowAzureServices"
+  server_id        = azurerm_postgresql_flexible_server.grafana.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
+
+# ---------------------------------------------------------------------------
 # Módulo: Networking
 # ---------------------------------------------------------------------------
 module "networking" {
@@ -87,6 +120,12 @@ module "lgtm" {
   mimir_container_name   = module.storage.mimir_container_name
   tempo_container_name   = module.storage.tempo_container_name
   grafana_admin_password = var.grafana_admin_password
+  grafana_database_host  = azurerm_postgresql_flexible_server.grafana.fqdn
+  grafana_database_port  = 5432
+  grafana_database_name  = azurerm_postgresql_flexible_server_database.grafana.name
+  grafana_database_user  = "${var.postgres_admin_username}@${azurerm_postgresql_flexible_server.grafana.name}"
+  grafana_database_pass  = var.postgres_admin_password
+  grafana_database_ssl_mode = "require"
   grafana_image          = var.grafana_image
   loki_image             = var.loki_image
   mimir_image            = var.mimir_image
@@ -106,5 +145,10 @@ module "lgtm" {
   max_replicas           = var.max_replicas
   tags                   = local.common_tags
 
-  depends_on = [module.container_apps_env, module.storage]
+  depends_on = [
+    module.container_apps_env,
+    module.storage,
+    azurerm_postgresql_flexible_server_database.grafana,
+    azurerm_postgresql_flexible_server_firewall_rule.allow_azure_services,
+  ]
 }

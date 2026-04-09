@@ -94,6 +94,48 @@ variable "grafana_admin_password" {
   sensitive   = true
 }
 
+variable "postgres_admin_username" {
+  description = "Usuario administrador do PostgreSQL Flexible Server."
+  type        = string
+  default     = "pgadmin"
+}
+
+variable "postgres_admin_password" {
+  description = "Senha do usuario administrador do PostgreSQL Flexible Server."
+  type        = string
+  sensitive   = true
+}
+
+variable "postgres_database_name" {
+  description = "Nome do banco de dados usado pelo Grafana."
+  type        = string
+  default     = "grafana"
+}
+
+variable "postgres_sku_name" {
+  description = "SKU do PostgreSQL Flexible Server (ex: B_Standard_B1ms, B_Standard_B2s, GP_Standard_D2s_v3)."
+  type        = string
+  default     = "B_Standard_B1ms"
+}
+
+variable "postgres_storage_mb" {
+  description = "Armazenamento em MB do PostgreSQL Flexible Server."
+  type        = number
+  default     = 32768
+}
+
+variable "postgres_version" {
+  description = "Versao principal do PostgreSQL."
+  type        = string
+  default     = "16"
+}
+
+variable "postgres_public_network_access_enabled" {
+  description = "Habilita acesso publico ao PostgreSQL Flexible Server."
+  type        = bool
+  default     = true
+}
+
 variable "grafana_image" {
   description = "Imagem Docker do Grafana."
   type        = string

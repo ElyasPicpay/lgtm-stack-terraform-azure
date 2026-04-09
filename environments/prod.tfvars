@@ -51,3 +51,5 @@ tags = {
 
 # grafana_admin_password — NUNCA commitar. Injetar via:
 # export TF_VAR_grafana_admin_password="$(az keyvault secret show ...)"
+# postgres_admin_password — NUNCA commitar. Injetar via:
+# export TF_VAR_postgres_admin_password="$(az keyvault secret show ...)"

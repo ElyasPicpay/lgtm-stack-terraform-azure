@@ -423,6 +423,36 @@ resource "azurerm_container_app" "grafana" {
         value = var.grafana_admin_password
       }
 
+      env {
+        name  = "GF_DATABASE_TYPE"
+        value = "postgres"
+      }
+
+      env {
+        name  = "GF_DATABASE_HOST"
+        value = "${var.grafana_database_host}:${var.grafana_database_port}"
+      }
+
+      env {
+        name  = "GF_DATABASE_NAME"
+        value = var.grafana_database_name
+      }
+
+      env {
+        name  = "GF_DATABASE_USER"
+        value = var.grafana_database_user
+      }
+
+      env {
+        name  = "GF_DATABASE_PASSWORD"
+        value = var.grafana_database_pass
+      }
+
+      env {
+        name  = "GF_DATABASE_SSL_MODE"
+        value = var.grafana_database_ssl_mode
+      }
+
       # Provisiona datasources automaticamente via env
       env {
         name  = "GF_PATHS_PROVISIONING"

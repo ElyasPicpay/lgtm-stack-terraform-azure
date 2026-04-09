@@ -14,6 +14,18 @@ variable "grafana_admin_password" {
   type      = string
   sensitive = true
 }
+variable "grafana_database_host" { type = string }
+variable "grafana_database_port" { type = number }
+variable "grafana_database_name" { type = string }
+variable "grafana_database_user" { type = string }
+variable "grafana_database_pass" {
+  type      = string
+  sensitive = true
+}
+variable "grafana_database_ssl_mode" {
+  type    = string
+  default = "require"
+}
 variable "grafana_image" { type = string }
 variable "loki_image" { type = string }
 variable "mimir_image" { type = string }

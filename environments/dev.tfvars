@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------
 
 environment = "dev"
-location    = "eastus2"
+location    = "brazilsouth"
 project     = "lgtm"
 
 # Rede
@@ -51,4 +51,6 @@ tags = {
 
 # Senha do Grafana — use variável de ambiente ou secret manager em CI/CD:
 # export TF_VAR_grafana_admin_password="<senha>"
+# Senha do PostgreSQL do Grafana:
+# export TF_VAR_postgres_admin_password="<senha>"
 # grafana_admin_password = "DEFINA_VIA_TF_VAR"
