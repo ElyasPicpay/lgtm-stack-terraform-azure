@@ -156,3 +156,14 @@ terraform init \
   -backend-config="resource_group_name=rg-terraform-state" \
   -backend-config="storage_account_name=stterraformstate"
 ```
+
+## Cronograma de atividades (abril)
+
+| Atividade | Status | Janela/Observações |
+|-----------|--------|--------------------|
+| Testar conectividade com EndpointPrivate com a Celeste SaaS | Planejado | A partir do dia 18 |
+| Adicionar observabilidade e métricas | Planejado | Distribuir nos dias disponíveis |
+| [BUG] Assistant Extension | Concluído | Atualização realizada em 23 de abril |
+| Deploy Integração Mercado Pago (PIX) - Celeste PROD | Concluído | 14 de abril, 22h–0:00 |
+| Sync com Edu | Planejado | 1h por dia do dia 13 até 23 de abril |
+| Sync Celeste | Planejado | 13 e 27 de abril, 8h–9h |
